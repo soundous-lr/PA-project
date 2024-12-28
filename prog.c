@@ -12,23 +12,6 @@
 #define MAX_BORROW_LIMIT 3 // Maximum quantity of a single book a member can borrow
  
 
-typedef struct {
-    char username[MAX_USERNAME];
-    char password[MAX_PASSWORD];
-    char role[MAX_ROLE]; // "Admin" or "Member"
-} User;
-
-
-void registerUser();
-int loginUser(User *loggedInUser);
-void addBook();
-void viewBooks();
-void updateBook();
-void deleteBook();
-int generateBookID();
-int readUsers(User users[]);
-int readBooks(Book books[]);
-
 
 // marwa part (variables are to be modified after others add their codes )
 // Structure for books
@@ -258,9 +241,33 @@ void borrowBook(const char *username) {
     rename("temp.txt", booksFile);
 }
 
+<<<<<<< HEAD
 // main function  
 // fait par LERHLERH Soundous 
 
+=======
+
+typedef struct {
+    char username[MAX_USERNAME];
+    char password[MAX_PASSWORD];
+    char role[MAX_ROLE]; // "Admin" or "Member"
+} User;
+
+
+void registerUser();
+int loginUser(User *loggedInUser);
+void addBook();
+void viewBooks();
+void updateBook();
+void deleteBook();
+int generateBookID();
+int readUsers(User users[]);
+int readBooks(Book books[]);
+
+
+
+// The main function to test the borrowBook function
+>>>>>>> 0d5a64906e0a641e7998e8be4d7dc5f22c590ee1
 int main() {
 	
     User loggedInUser;
