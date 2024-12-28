@@ -9,6 +9,8 @@
 #define MAX_AUTHOR 100
 #define MAX_BOOKS 100
 #define MAX_USERS 100
+#define MAX_BORROW_LIMIT 3 // Maximum quantity of a single book a member can borrow
+ 
 
 typedef struct {
     char username[MAX_USERNAME];
@@ -37,21 +39,7 @@ int readUsers(User users[]);
 int readBooks(Book books[]);
 
 
-
-// main function 
-
-int main()
-{
-	
-	return 0;
-}
-
 // marwa part (variables are to be modified after others add their codes )
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define MAX_BORROW_LIMIT 3 // Maximum quantity of a single book a member can borrow
 // Structure for books
 typedef struct {
     int id;
