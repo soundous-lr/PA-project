@@ -40,9 +40,78 @@ int readBooks(Book books[]);
 
 // main function 
 
-int main()
-{
+int main() {
 	
-	return 0;
+    User loggedInUser;
+    int choice;
+
+    while (1) {
+        printf("\nLibrary Management System\n");
+        printf("1. Register\n");
+        printf("2. Login\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                registerUser();
+                break;
+            case 2:
+                if (loginUser(&loggedInUser)) {
+                    printf("Login successful. Welcome, %s!\n", loggedInUser.username);
+
+                    while (1) {
+                        printf("\n1. View Books\n");
+                        if (strcmp(loggedInUser.role, "Admin") == 0) {
+                            printf("2. Add Book\n");
+                            printf("3. Update Book\n");
+                            printf("4. Delete Book\n");
+                        } else if (strcmp(loggedInUser.role, "Member") == 0) {
+                            printf("2. Borrow Book\n");
+                        }
+                        printf("5. Logout\n");
+                        printf("Enter your choice: ");
+                        scanf("%d", &choice);
+
+                        if (choice == 5) break;
+
+                        switch (choice) {
+                            case 1:
+                                viewBooks();
+                                break;
+                            case 2:
+                                if (strcmp(loggedInUser.role, "Admin") == 0) {
+                                    addBook();
+                                } else {
+                                    borrowBook(&loggedInUser);
+                                }
+                                break;
+                            case 3:
+                                if (strcmp(loggedInUser.role, "Admin") == 0) {
+                                    updateBook();
+                                }
+                                break;
+                            case 4:
+                                if (strcmp(loggedInUser.role, "Admin") == 0) {
+                                    deleteBook();
+                                }
+                                break;
+                            default:
+                                printf("Invalid choice.\n");
+                                break;
+                        }
+                    }
+                }
+                break;
+            case 3:
+                exit(0);
+            default:
+                printf("Invalid choice.\n");
+                break;
+        }
+    }
+
+    return 0;
 }
 
