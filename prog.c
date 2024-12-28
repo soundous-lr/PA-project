@@ -18,14 +18,6 @@ typedef struct {
     char role[MAX_ROLE]; // "Admin" or "Member"
 } User;
 
-typedef struct {
-    int id;
-    char title[MAX_TITLE];
-    char author[MAX_AUTHOR];
-    float price;
-    int quantity;
-} Book;
-
 
 void registerUser();
 int loginUser(User *loggedInUser);
