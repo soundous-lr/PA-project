@@ -1,32 +1,46 @@
-/*
- * prog.c
- * 
- * Copyright 2024 Unknown <Soundous@SoundousOS>
- * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- * 
- * 
- */
-
-
-
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main(int argc, char **argv)
+#define MAX_USERNAME 50
+#define MAX_PASSWORD 50
+#define MAX_ROLE 10
+#define MAX_TITLE 100
+#define MAX_AUTHOR 100
+#define MAX_BOOKS 100
+#define MAX_USERS 100
+
+typedef struct {
+    char username[MAX_USERNAME];
+    char password[MAX_PASSWORD];
+    char role[MAX_ROLE]; // "Admin" or "Member"
+} User;
+
+typedef struct {
+    int id;
+    char title[MAX_TITLE];
+    char author[MAX_AUTHOR];
+    float price;
+    int quantity;
+} Book;
+
+
+void registerUser();
+int loginUser(User *loggedInUser);
+void addBook();
+void viewBooks();
+void updateBook();
+void deleteBook();
+void borrowBook(User *loggedInUser);
+int generateBookID();
+int readUsers(User users[]);
+int readBooks(Book books[]);
+
+
+
+// main function 
+
+int main()
 {
 	
 	return 0;
