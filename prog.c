@@ -33,7 +33,6 @@ void addBook();
 void viewBooks();
 void updateBook();
 void deleteBook();
-void borrowBook(User *loggedInUser);
 int generateBookID();
 int readUsers(User users[]);
 int readBooks(Book books[]);
