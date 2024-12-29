@@ -2,15 +2,75 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_USERNAME 50
-#define MAX_PASSWORD 50
+#define MAX_USERNAME 20
+#define MAX_PASSWORD 20
 #define MAX_ROLE 10
 #define MAX_TITLE 100
 #define MAX_AUTHOR 100
 #define MAX_BOOKS 100
 #define MAX_USERS 100
 #define MAX_BORROW_LIMIT 3 // Maximum quantity of a single book a member can borrow
- 
+//widad part
+
+typedef struct {
+    char username[MAX_USERNAME];
+    char password[MAX_PASSWORD];
+    char role[MAX_ROLE]; // "Admin" or "Member"
+} User;
+// Fonction pour vérifier si un nom d'utilisateur existe déjà
+int usernameExists(const char *username) {
+    FILE *file = fopen("users.txt", "r");
+    User user;
+    while (fscanf(file, "%s %s %s", user.username, user.password, user.role) != EOF) {
+        if (strcmp(user.username, username) == 0) {
+            fclose(file);
+            return 1; // Le nom d'utilisateur existe déjà
+        }
+    }
+
+    fclose(file);
+    return 0; // Le nom d'utilisateur est unique
+}
+
+// Fonction pour enregistrer un nouvel utilisateur
+void registerUser() {
+    User user;
+
+    printf("=== Inscription ===\n");
+    printf("Nom d'utilisateur : ");
+    scanf("%s", user.username);
+
+    // Vérifier si le nom d'utilisateur existe déjà
+    if (usernameExists(user.username)) {
+        printf("Erreur : Le nom d'utilisateur '%s' existe déjà.\n", user.username);
+        return;
+    }
+
+    printf("Mot de passe : ");
+    scanf("%s", user.password);
+
+    printf("Rôle (Admin/Membre) : ");
+    scanf("%s", user.role);
+
+    // Vérifier si le rôle est valide
+    if (strcmp(user.role, "Admin") != 0 && strcmp(user.role, "Membre") != 0) {
+        printf("Erreur : Le rôle doit être 'Admin' ou 'Membre'.\n");
+        return;
+    }
+
+    // Ouvrir le fichier pour ajouter l'utilisateur
+    FILE *file = fopen("users.txt", "a");
+    if (file == NULL) {
+        printf("Erreur : Impossible d'ouvrir le fichier.\n");
+        return;
+    }
+
+    // Écrire les informations de l'utilisateur dans le fichier
+    fprintf(file, "%s %s %s\n", user.username, user.password, user.role);
+    fclose(file);
+
+    printf("Inscription réussie pour '%s'.\n", user.username);
+}
 
 
 // marwa part (variables are to be modified after others add their codes )
@@ -86,7 +146,8 @@ void updateBorrowRecord(const char *username, int bookID, int borrowedQuantity) 
 
 <<<<<<< HEAD
 int main() {
-	
+    //apple de registerUser
+	registerUser();
     User loggedInUser;
     int choice;
 
@@ -178,7 +239,7 @@ void borrowBook(const char *username) {
         Book book;
         sscanf(line, "%d,%[^,],%[^,],%f,%d", &book.id, book.title, book.author, &book.price, &book.quantity);
         if (book.quantity > 0) {
-            printf("ID: %d | Title: %s | Author: %s | Price: %.2f | Quantity: %d\n", 
+            printf("ID: %d | Title: %s | Author: %s | Price: %.2f | Quantity: %d\n",
                    book.id, book.title, book.author, book.price, book.quantity);
         }
     }
@@ -211,7 +272,7 @@ void borrowBook(const char *username) {
             if (book.quantity > 0 && alreadyBorrowed < MAX_BORROW_LIMIT) {
                 int borrowQuantity = 1; // For simplicity, allow borrowing one book at a time
                 if (alreadyBorrowed + borrowQuantity > MAX_BORROW_LIMIT) {
-                    printf("Error: Borrowing limit exceeded for '%s'. You can only borrow up to %d copies.\n", 
+                    printf("Error: Borrowing limit exceeded for '%s'. You can only borrow up to %d copies.\n",
                            book.title, MAX_BORROW_LIMIT);
                 } else {
                     book.quantity -= borrowQuantity;
@@ -242,19 +303,10 @@ void borrowBook(const char *username) {
 }
 
 <<<<<<< HEAD
-// main function  
-// fait par LERHLERH Soundous 
+// main function
+// fait par LERHLERH Soundous
 
 =======
-
-typedef struct {
-    char username[MAX_USERNAME];
-    char password[MAX_PASSWORD];
-    char role[MAX_ROLE]; // "Admin" or "Member"
-} User;
-
-
-void registerUser();
 int loginUser(User *loggedInUser);
 void addBook();
 void viewBooks();
@@ -269,7 +321,7 @@ int readBooks(Book books[]);
 // The main function to test the borrowBook function
 >>>>>>> 0d5a64906e0a641e7998e8be4d7dc5f22c590ee1
 int main() {
-	
+
     User loggedInUser;
     int choice;
 
